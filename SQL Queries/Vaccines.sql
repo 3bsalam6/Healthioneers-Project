@@ -2,16 +2,25 @@ create database Vaccination
 
 use Vaccination
 
-Create table Patients(
-Patient_ID int primary key identity(1,1),
+Create Table Cities(
+City_ID int primary key Identity(1,1),
+City_Name Varchar(25)
+)
+
+Create Table Patients (
+Patient_ID int primary key Identity(1,1),
 Patient_FName Varchar(50) not null,
 Patient_LName Varchar(50) not null,
 Patient_Username Varchar(50) not null unique,
-Patient_Password Varchar(50) not null , 
+Hashed_Password Varchar(255),
 Patient_City_ID int Foreign Key References Cities(City_ID),
 Patient_Phone Varchar(15) not null,
-Patient_National_ID  Varchar(14) unique
-)
+Patient_National_ID Varchar(14) unique,
+Created_Date DATETIME not null default GETDATE(),
+Status Varchar(20) not null,
+Patient_Image Varchar(255),
+Upload_Count INT NULL DEFAULT 0
+);
 
 Create Table Vaccines(
 Vaccine_ID int Primary key Identity(1,1),
@@ -27,13 +36,11 @@ Center_City_ID int Foreign Key References Cities(City_ID),
 Center_Address Text,
 Center_Contact_No Varchar(15),
 Center_Username Varchar(50) not null unique, 
+Center_Type Varchar(20) ,
+Status Varchar(20),
 Center_Password Varchar(50) not null,
 )
 
-Create Table Cities(
-City_ID int primary key Identity(1,1),
-City_Name Varchar(25)
-)
 
 Create Table Reservations(
 Reservation_ID int Primary Key Identity(1,1),
@@ -53,7 +60,7 @@ Admin_ID int Primary key Identity(1,1),
 Admin_Fname Varchar(15) not null,
 Admin_Lname Varchar(15) not null,
 Admin_Username Varchar(50) not null unique,
-Admin_Password Varchar(50) not null
+Admin_Password Varchar(255) not null
 )
 
 
